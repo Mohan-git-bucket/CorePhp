@@ -1,0 +1,124 @@
+<!-- Save as chatbot.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6fb;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 30px 40px 40px 40px;
+        }
+        h2 {
+            color: #2d3e50;
+            text-align: center;
+        }
+        #query {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 18px;
+            margin: 5px 2px;
+            border: none;
+            border-radius: 5px;
+            background: #4f8cff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        #results {
+            margin-top: 20px;
+            background: #f1f5fa;
+            border-radius: 5px;
+            padding: 15px;
+            min-height: 40px;
+            font-size: 15px;
+            color: #222;
+            overflow-x: auto;
+            word-wrap: break-word;
+        }
+
+        #results pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+            max-width: 100%;
+            margin-bottom: 15px;
+        }
+        p {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to the Chatbot! Type your search query:</h2>
+        <input type="text" id="query" placeholder="Enter your query">
+        <button onclick="sendQuery()">Search</button>
+        <button onclick="clearResults()">Clear</button>
+        <div id="results"></div>
+            <div id="results1">
+                <pre style="margin-left: -150px;">
+                    <a href="http://clkibana.netcore.co.in:5601/" target="_blank">US Kibana Dashboard</a>
+                    <a href="https://clkibana-ind.netcorein.com/" target="_blank">IND Kibana Dashboard</a>
+                    <a href="http://clkibana-eu.netcore.co.in:5601/" target="_blank">EU Kibana Dashboard</a>
+
+                    <strong>User:</strong> devops
+                    <strong>Password:</strong> Sm@rtL0gVu82
+
+                    <a href="http://192.168.54.25/iac/capture-component/ha_ip_iddresses.php" target="_blank">HA IP Live Server Page</a>
+                    <a href="https://docs.google.com/spreadsheets/d/1tJoU8WUhs9axA2FYmCi_KcDHlEyJ0JqF7rNnGIlfQsA/edit?gid=621958922#gid=621958922" target="_blank">Europe Server Details (Google Sheet)</a>
+                    <a href="https://docs.google.com/spreadsheets/d/12ht1KZpWSfwMAnP4QiH7Neej6FWR2uPwtZhw9E-tzug/edit?gid=0#gid=0" target="_blank">Smartech Config Value Sheet</a>
+                    <a href="https://docs.google.com/spreadsheets/d/1KFjESf7QBtd7cKb3MPiyCUjiCDAcCzmR-pTEm3KDrKs/edit#gid=634347005" target="_blank">EU link tracking logs</a>
+                    <a href="https://netcoresolutions.atlassian.net/wiki/spaces/SE/pages/4048093186/Go-cro-v2-writer+S-R-E+Document" target="_blank">Gocro document</a>
+                    <a href="https://netcoresolutions.atlassian.net/wiki/spaces/CJR/pages/3514269726/Journey+setup+on+aws+servers+details" target="_blank">Journey Topology</a>
+                    <a href="https://netcoresolutions.atlassian.net/wiki/spaces/~55705809ddc6e3c13c43dfb18a523ddfb558d8/pages/4153638941/GO+RG+System#SRE-to-inves[…]e-a-log-line" target="_blank">New Rg dashboard</a>
+                    <a href="https://netcoresolutions.atlassian.net/wiki/spaces/~712020eed9ea3c7897422c8726f4e1f1fe69e0/pages/4225597465/Procedure+to+increment+payload+size" target="_blank">Event Payload Size Increase</a>
+                </pre>
+            </div>
+    </div>
+    <script>
+        function sendQuery() {
+            const query = document.getElementById('query').value;
+            fetch('/chat', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({query: query})
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultsDiv = document.getElementById('results');
+                if (data.results.length > 0) {
+                    resultsDiv.innerHTML = data.results.map(r => `<pre>${r}</pre>`).join('');
+                } else {
+                    resultsDiv.innerHTML = "<p>No results found. Try another keyword.</p>";
+                }
+            });
+        }
+        
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('query').value = '';
+        }
+    </script>
+</body>
+</html>
